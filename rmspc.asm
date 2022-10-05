@@ -37,10 +37,8 @@ section .text
 		mov edx, edi
 
 		sub edx, esi
-		push ecx
 		mov eax, 4
 		mov ebx, 1
 		mov ecx, esi
 		int 0x80
-		pop ecx
 		ret

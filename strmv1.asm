@@ -11,8 +11,10 @@ section .text
 	main:
 		mov esi, source		; add start address  of str
 		mov edi, destination 	; add start address of str
-		dec esi			; go one pos back to avoid going to /0 in next step
+		dec esi			; go one pos back to avoid going out of string
 		add esi, len		; move esi to end of str
+		dec esi			; now avoid /0
+		dec esi			; now avoid /n
 
 		mov ecx, len
 	lp 	STD                	; sets DF flag
@@ -24,6 +26,6 @@ section .text
 		mov eax, 4
 		mov ebx, 1
 		mov ecx, destination
-		mov edx, len
+		mov edx, len-2
 		int 0x80
 		ret

@@ -1,0 +1,11 @@
+% macro abc 3
+	mov eax , %1
+	mov ebx ,%2
+	add eax, ebx
+	mov %3, eax
+% endmacro
+
+
+
+
+in code just use abc 3,4, eax

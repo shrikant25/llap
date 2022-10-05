@@ -8,10 +8,14 @@ max:
 	mov ebx, dword[ebp+12]
 	cmp eax, ebx
 	jg lp
-	mov eax, dword[ebp+12]
+	mov dword[ebp-4], ebx
+	jmp lp1
 	
 
 lp: 
-	mov esp,ebp
+	mov dword[ebp-4], eax
+lp1:	
+	mov eax, dword[ebp-4]
+	mov esp, ebp
 	pop ebp
 	ret
