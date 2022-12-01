@@ -11,7 +11,7 @@ int main()
 
 	asm("imull %%edx, %%ecx\n\t"
 			
-			"movl %%ecx, %%eax"
+			"movl %%ecx, %%eax\n\t"	
 		       : "=a"	(result)
 		       : "d" (data1), "c" (data2));
 

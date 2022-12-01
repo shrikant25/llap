@@ -1,7 +1,7 @@
 #include<stdio.h>
 
 int result = 0;
-int fact = 5;
+int fact = 6;
 
 int main(){
 

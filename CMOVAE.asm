@@ -6,5 +6,18 @@ section .text
 	mov ebx, 5
 	cmp eax, ebx
 	CMOVAE eax, ebx
-	mov ebx, eax	
+	
+
+	mov eax, 6
+	mov ebx, 5
+	cmp eax, ebx
+	CMOVAE eax, ebx
+	
+	mov eax, 7
+	mov ebx, 6
+	cmp eax, ebx
+	CMOVAE eax, ebx
+
+	
+	
 ret
