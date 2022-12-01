@@ -8,7 +8,7 @@ section .data
 	
 	int_holder db "%d", 0
 	
-	nl db 10
+	nl db 10, 0
 	colon db " : ", 0	
 
 section .bss
@@ -19,36 +19,47 @@ section .text
 	global main
 	extern printf, scanf
 main:
+
+	mov ecx, 256
+	mov eax, arr
+lp1:	mov dword[eax], 0
+	add eax, 4
+	dec ecx
+	cmp ecx, 0
+	jg lp1
+
 	push msg
 	call printf
 	add esp, 4
 
-	mov eax, mystr
+	mov esi, mystr
 	lp:	
-		push eax
+		
+		push esi
 		push char_holder
 		call scanf
-		add esp, 4
+		add esp, 8
 		
-		cmp dword[eax], 10
+		mov al, byte[esi]
+		cmp al, 10
 		je cnt
 		
-		inc eax
+		inc esi
 		jmp lp
 
 	cnt:	
 		xor ecx, ecx
-		mov eax, 4
 		mov esi, mystr
 		
-		lp2:	
+		lp2:
+			mov eax, 4	
 			cmp dword[esi], 0
 			je prntcnt
 		
 			mov cl, byte[esi]		
 			mul ecx
 			mov ebx, arr
-			add ebx, ecx
+			add ebx, eax
 			inc dword[ebx]
 			inc esi
 			jmp lp2
@@ -59,39 +70,43 @@ main:
 		call printf
 		add esp, 4
 
-		xor ecx, ecx
-		mov esi, mystr
-		mov eax, 4
+		xor ebx, ebx
+		mov esi, arr
 
 		lp3:	
 			cmp dword[esi], 0
-			je end
+			jne show
 
-			push dword[esi]
-			push char_holder
+		lbl:	
+                        inc ebx
+			add esi, 4
+               	        cmp ebx, 255
+                      	jg end
+			jmp lp3				
+
+		show:	
+			mov eax, ebx			
+			push eax
+			push int_holder
 			call printf
 			add esp, 8
 			
 			push colon
 			call printf
 			add esp, 4
-		
-			mov cl, byte[esi]
-			mul ecx
-			add ebx, ecx
-			push dword[ebx]
+
+			push dword[esi]
+			push int_holder
 			call printf
-			add esp, 4
+			add esp, 8
 			
 			push nl
 			call printf
 			add esp, 4			
 
-			inc esi
-			jmp lp3
-
-	end:
-		ret
+			jmp lbl
+	
+	end: ret
 
 
 
